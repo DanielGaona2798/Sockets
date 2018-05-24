@@ -39,6 +39,17 @@ public class Server {
 	}
 	
 
+	public static void sendMessageALL(String[] message){
+		for (ClientConnections clientConnections2 : clientConnections) {
+			try {
+				if (clientConnections2.getSocket().isConnected()) {
+					clientConnections2.send("/message#" + message[1]+"#"+ message[2]);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	public static void main(String[] args) {
 		try {
 			new Server();
@@ -46,4 +57,7 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
+
+
+
 }

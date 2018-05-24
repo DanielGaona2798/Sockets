@@ -16,30 +16,11 @@ public class ClientConnections extends Connection{
 	@Override
 	void executeTask() {
 		try {
-			switch (readResquest()) {
-			case "1":
-				send("/number#Hola");
-				break;
-			case "2":
-				send("/number#Hola Como");
-				break;
-			case "3":
-				send("/number#Hola Como Estas");
-				break;
-			case "4":
-				send("/number#Hola Como estas? Todo");
-				break;
-			case "5":
-				send("/number#Hola Como estas? Todo bien?");
-				break;
-			case "hora":
-				getHour();
-				break;
-			case "file":
-				sendFile();
-				break;
-			default:
-				send("/default#caracteres exedidos");
+			String [] string = readResquest().split("#");
+			switch (string[0]) {
+			case "/message":
+				sendMessage(string);
+				
 				break;
 			}
 
@@ -47,6 +28,10 @@ public class ClientConnections extends Connection{
 		}
 	}
 	
+	private void sendMessage(String[] string) {
+		Server.sendMessageALL(string);
+	}
+
 	private void getHour() throws IOException{
 		Calendar calendar = Calendar.getInstance();
 		int hora =calendar.get(Calendar.HOUR_OF_DAY);
